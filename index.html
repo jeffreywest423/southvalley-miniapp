@@ -148,35 +148,44 @@
 <!-- APP -->
 <div id="appContainer" class="hidden min-h-screen flex flex-col pb-32 relative">
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-50 px-6 py-3 flex justify-between items-center bg-[rgba(5,5,5,0.9)] backdrop-blur-md border-b border-[--border-subtle]">
+    <!-- HEADER (Logo Centré) -->
+    <header class="sticky top-0 z-50 px-6 py-3 flex justify-center items-center bg-[rgba(5,5,5,0.9)] backdrop-blur-md border-b border-[--border-subtle]">
         <div class="relative" onclick="changeScreen('menu')">
             <img src="https://res.cloudinary.com/dlmmylat6/image/upload/v1765067656/Sans_titre_Logo_wjtljl.png" alt="South Valley" class="h-14 w-auto object-contain cursor-pointer">
             <span class="absolute -top-1 -right-2 text-xl filter drop-shadow-md">🎅</span>
         </div>
-        <!-- Bouton Panier avec zone de touche étendue (p-4 -mr-2) -->
-        <button onclick="changeScreen('cart')" class="relative p-4 -mr-2 active:scale-95 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-            </svg>
-            <span id="cartCount" class="absolute top-2 right-1 bg-[--primary-accent] text-black text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-sm border border-black">0</span>
-        </button>
     </header>
 
     <!-- MAIN -->
     <main id="mainContent" class="flex-1 px-4 py-6 w-full max-w-md mx-auto"></main>
 
-    <!-- NAV BAR -->
+    <!-- NAV BAR (Avec Panier) -->
     <nav class="nav-bar">
         <div class="flex justify-around items-center h-16">
+            <!-- Onglet QG -->
             <button onclick="changeScreen('menu')" id="nav-menu" class="nav-btn flex flex-col items-center justify-center w-full h-full text-[--text-muted] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
                 <span class="text-[10px]">QG</span>
             </button>
+            
+            <!-- Onglet Menu -->
             <button onclick="changeScreen('products', 'Hash & Zaza Valley')" id="nav-products" class="nav-btn flex flex-col items-center justify-center w-full h-full text-[--text-muted] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
                 <span class="text-[10px]">Menu</span>
             </button>
+
+            <!-- Onglet Panier -->
+            <button onclick="changeScreen('cart')" id="nav-cart" class="nav-btn flex flex-col items-center justify-center w-full h-full text-[--text-muted] transition-colors relative">
+                <div class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-[--primary-accent] text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm border border-black min-w-[18px] text-center">0</span>
+                </div>
+                <span class="text-[10px]">Panier</span>
+            </button>
+
+            <!-- Onglet Infos -->
             <button onclick="changeScreen('contact')" id="nav-contact" class="nav-btn flex flex-col items-center justify-center w-full h-full text-[--text-muted] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
                 <span class="text-[10px]">Infos</span>
@@ -267,6 +276,7 @@
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
         if(screenName === 'menu') document.getElementById('nav-menu')?.classList.add('active');
         if(screenName === 'products') document.getElementById('nav-products')?.classList.add('active');
+        if(screenName === 'cart') document.getElementById('nav-cart')?.classList.add('active');
         if(screenName === 'contact') document.getElementById('nav-contact')?.classList.add('active');
 
         if(screenName === 'menu') main.innerHTML = renderMenu();
@@ -293,7 +303,7 @@
                 <div class="glass-card p-5 border-l-4 border-[--primary-accent] relative overflow-hidden">
                     <div class="absolute right-0 top-0 opacity-20 text-6xl transform translate-x-2 -translate-y-2">🎁</div>
                     <h3 class="text-xl font-bold text-[--primary-accent]">Offre de Noël 🎅</h3>
-                    <p class="text-sm text-[--text-muted] mt-1">Invitez un ami, recevez un cadeau ! (Offre cumulable)</p>
+                    <p class="text-sm text-[--text-muted] mt-1">Invitez un ami, recevez un cadeau !</p>
                     <div class="mt-3 inline-block bg-[--primary-accent] text-black text-sm font-bold px-3 py-1 rounded-full">
                         1 Ami Validé = 1.G OFFERT 🎁
                     </div>
@@ -425,7 +435,7 @@
                 </div>
             </div>`;
     }
-
+    
     function renderCheckout() {
         const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
         return `
