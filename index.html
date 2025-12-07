@@ -6,6 +6,9 @@
     <title>SOUTH VALLEY - Christmas Edition</title>
     <!-- Chargement de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Google Fonts: Montserrat (Titres) & Inter (Corps) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         /* --- THÈME "NOËL ONYX" --- */
         :root {
@@ -26,17 +29,23 @@
         
         body { 
             background-color: var(--bg-deep); 
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif; /* Police par défaut pour le texte */
             color: var(--text-main);
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Police pour les Titres et Boutons */
+        h1, h2, h3, .btn-main, .font-heading {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.02em; /* Crénage serré pour un look moderne */
         }
 
         /* Arrière-plan Hivernal */
         .app-background {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(to bottom, rgba(5,5,5,0.8), var(--bg-deep)), url('https://res.cloudinary.com/dlmmylat6/image/upload/v1764915497/Sans_titre_Votre_story_dquj0q.png');
+            background-image: linear-gradient(to bottom, rgba(5,5,5,0.85), var(--bg-deep)), url('https://res.cloudinary.com/dlmmylat6/image/upload/v1764915497/Sans_titre_Votre_story_dquj0q.png');
             background-size: cover; background-position: center; z-index: -2;
         }
 
@@ -58,9 +67,9 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .glass-card {
-            background-color: rgba(18, 18, 18, 0.85);
+            background-color: rgba(18, 18, 18, 0.9);
             border: 1px solid var(--border-subtle);
-            border-radius: 16px;
+            border-radius: 18px; /* Coins plus arrondis */
             box-shadow: 0 8px 32px rgba(0,0,0,0.5);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         }
@@ -85,10 +94,7 @@
             transform: skewX(-20deg);
             animation: shimmer 3s infinite;
         }
-        @keyframes shimmer { 
-            0%, 70% { left: -100%; } 
-            100% { left: 200%; } 
-        }
+        @keyframes shimmer { 0%, 70% { left: -100%; } 100% { left: 200%; } }
 
         .btn-ghost {
             background-color: rgba(255,255,255,0.08);
@@ -99,9 +105,22 @@
         .input-modern {
             background-color: rgba(0,0,0,0.4);
             border: 1px solid var(--border-subtle);
-            color: white; border-radius: 12px; padding: 12px; width: 100%;
+            color: white; border-radius: 12px; padding: 14px; width: 100%;
+            font-size: 15px;
         }
         .input-modern:focus { border-color: var(--primary-accent); outline: none; box-shadow: 0 0 0 2px var(--primary-glow); }
+
+        /* Helper text sous les inputs */
+        .input-helper {
+            font-size: 11px;
+            color: #888;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            margin-left: 4px;
+            line-height: 1.4;
+        }
+        .input-helper b { color: #ccc; font-weight: 600; }
+        .input-helper .highlight { color: var(--primary-accent); }
 
         .service-opt, .payment-opt { transition: all 0.2s; cursor: pointer; }
         .service-opt.active, .payment-opt.active {
@@ -111,8 +130,8 @@
         }
 
         .nav-bar {
-            background: rgba(18, 18, 18, 0.95);
-            backdrop-filter: blur(16px);
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
             border-top: 1px solid var(--border-subtle);
             padding-bottom: env(safe-area-inset-bottom);
             position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
@@ -122,7 +141,7 @@
 
         .mini-map-container {
             width: 100%; height: 160px; overflow: hidden;
-            border-radius: 12px; border: 1px solid var(--border-subtle);
+            border-radius: 14px; border: 1px solid var(--border-subtle);
             background-color: #050505; position: relative; margin: 12px 0;
         }
         .mini-map-img { width: 100%; height: 100%; object-fit: contain; opacity: 0.9; }
@@ -140,8 +159,8 @@
 
 <!-- LOADING -->
 <div id="loadingScreen" class="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-[--bg-deep] transition-opacity duration-500">
-    <img src="https://res.cloudinary.com/dlmmylat6/image/upload/v1765067656/Sans_titre_Logo_wjtljl.png" alt="Logo" class="h-24 animate-pulse mb-4 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">
-    <div class="text-[--primary-accent] text-sm font-bold tracking-widest uppercase mb-4">Édition Hivernale ❄️</div>
+    <img src="https://res.cloudinary.com/dlmmylat6/image/upload/v1765067656/Sans_titre_Logo_wjtljl.png" alt="Logo" class="h-28 animate-pulse mb-6 drop-shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+    <div class="text-[--primary-accent] text-sm font-bold tracking-[0.2em] uppercase mb-4 font-heading">ÉDITION HIVER</div>
     <div class="w-8 h-8 border-4 border-t-[--primary-accent] border-white/10 rounded-full animate-spin"></div>
 </div>
 
@@ -149,29 +168,27 @@
 <div id="appContainer" class="hidden min-h-screen flex flex-col pb-32 relative">
 
     <!-- HEADER (Logo Centré) -->
-    <header class="sticky top-0 z-50 px-6 py-3 flex justify-center items-center bg-[rgba(5,5,5,0.9)] backdrop-blur-md border-b border-[--border-subtle]">
+    <header class="sticky top-0 z-50 px-6 py-4 flex justify-center items-center bg-[rgba(5,5,5,0.95)] backdrop-blur-xl border-b border-[--border-subtle]">
         <div class="relative" onclick="changeScreen('menu')">
-            <img src="https://res.cloudinary.com/dlmmylat6/image/upload/v1765067656/Sans_titre_Logo_wjtljl.png" alt="South Valley" class="h-14 w-auto object-contain cursor-pointer">
-            <span class="absolute -top-1 -right-2 text-xl filter drop-shadow-md">🎅</span>
+            <img src="https://res.cloudinary.com/dlmmylat6/image/upload/v1765067656/Sans_titre_Logo_wjtljl.png" alt="South Valley" class="h-16 w-auto object-contain cursor-pointer">
+            <span class="absolute -top-2 -right-3 text-2xl filter drop-shadow-md animate-bounce" style="animation-duration: 3s;">🎅</span>
         </div>
     </header>
 
     <!-- MAIN -->
     <main id="mainContent" class="flex-1 px-4 py-6 w-full max-w-md mx-auto"></main>
 
-    <!-- NAV BAR (Avec Panier) -->
+    <!-- NAV BAR -->
     <nav class="nav-bar">
         <div class="flex justify-around items-center h-16">
-            <!-- Onglet QG -->
             <button onclick="changeScreen('menu')" id="nav-menu" class="nav-btn flex flex-col items-center justify-center w-full h-full text-[--text-muted] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-                <span class="text-[10px]">QG</span>
+                <span class="text-[10px] font-medium tracking-wide">QG</span>
             </button>
             
-            <!-- Onglet Menu -->
             <button onclick="changeScreen('products', 'Hash & Zaza Valley')" id="nav-products" class="nav-btn flex flex-col items-center justify-center w-full h-full text-[--text-muted] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-                <span class="text-[10px]">Menu</span>
+                <span class="text-[10px] font-medium tracking-wide">Menu</span>
             </button>
 
             <!-- Onglet Panier -->
@@ -182,13 +199,12 @@
                     </svg>
                     <span id="cartCount" class="absolute -top-2 -right-2 bg-[--primary-accent] text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm border border-black min-w-[18px] text-center">0</span>
                 </div>
-                <span class="text-[10px]">Panier</span>
+                <span class="text-[10px] font-medium tracking-wide">Panier</span>
             </button>
 
-            <!-- Onglet Infos -->
             <button onclick="changeScreen('contact')" id="nav-contact" class="nav-btn flex flex-col items-center justify-center w-full h-full text-[--text-muted] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
-                <span class="text-[10px]">Infos</span>
+                <span class="text-[10px] font-medium tracking-wide">Infos</span>
             </button>
         </div>
     </nav>
@@ -196,16 +212,16 @@
     <!-- PRODUCT MODAL -->
     <div id="productModal" class="fixed inset-0 z-[60] hidden flex items-end sm:items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-fade-in">
         <div class="bg-[--bg-card] w-full max-w-sm rounded-2xl border border-[--border-subtle] shadow-2xl overflow-hidden flex flex-col h-[80vh]">
-            <div class="relative w-full h-48 bg-black flex-shrink-0">
+            <div class="relative w-full h-56 bg-black flex-shrink-0">
                 <video id="productVideo" src="" controls muted class="w-full h-full object-cover"></video>
-                <button onclick="closeModal()" class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-white/20 z-10">
+                <button onclick="closeModal()" class="absolute top-3 right-3 bg-black/60 text-white rounded-full p-2 hover:bg-white/20 z-10 backdrop-blur-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </div>
-            <div class="p-5 flex flex-col flex-1 overflow-y-auto">
-                <h3 id="modalTitle" class="text-2xl font-bold text-[--primary-accent] mb-2"></h3>
-                <p id="modalDesc" class="text-sm text-[--text-muted] mb-6 leading-relaxed border-b border-[--border-subtle] pb-4"></p>
-                <h4 class="text-sm font-bold text-white mb-3 uppercase">Sélectionner une quantité :</h4>
+            <div class="p-6 flex flex-col flex-1 overflow-y-auto">
+                <h3 id="modalTitle" class="text-2xl font-black text-[--primary-accent] mb-2 uppercase tracking-wide"></h3>
+                <p id="modalDesc" class="text-sm text-[--text-muted] mb-6 leading-relaxed border-b border-[--border-subtle] pb-4 font-light"></p>
+                <h4 class="text-xs font-bold text-white mb-3 uppercase tracking-widest opacity-80">Sélectionner une quantité :</h4>
                 <div class="flex-1 space-y-3 pb-4" id="tiersContainer"></div>
             </div>
         </div>
@@ -296,33 +312,33 @@
         return `
             <div class="space-y-6 pt-2">
                 <div class="text-center mb-8">
-                    <h2 class="text-3xl font-bold text-white drop-shadow-md">Bienvenue au QG 🎄</h2>
-                    <p class="text-sm text-[--text-muted] mt-2 italic">L'équipe South Valley te souhaite un joyeux mois de Décembre !</p>
+                    <h2 class="text-2xl font-black text-white drop-shadow-md uppercase tracking-wide">Bienvenue au QG 🎄</h2>
+                    <p class="text-sm text-[--text-muted] mt-2 italic font-light">L'équipe South Valley te souhaite un joyeux mois de Décembre !</p>
                 </div>
                 
                 <div class="glass-card p-5 border-l-4 border-[--primary-accent] relative overflow-hidden">
                     <div class="absolute right-0 top-0 opacity-20 text-6xl transform translate-x-2 -translate-y-2">🎁</div>
-                    <h3 class="text-xl font-bold text-[--primary-accent]">Offre de Noël 🎅</h3>
+                    <h3 class="text-lg font-bold text-[--primary-accent] uppercase">Offre de Noël 🎅</h3>
                     <p class="text-sm text-[--text-muted] mt-1">Invitez un ami, recevez un cadeau !</p>
-                    <div class="mt-3 inline-block bg-[--primary-accent] text-black text-sm font-bold px-3 py-1 rounded-full">
+                    <div class="mt-3 inline-block bg-[--primary-accent] text-black text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
                         1 Ami Validé = 1.G OFFERT 🎁
                     </div>
                 </div>
 
                 <div class="grid gap-4">
                     <div onclick="changeScreen('products', 'Hash & Zaza Valley')" class="glass-card p-6 flex justify-between items-center cursor-pointer hover:bg-[--bg-card-highlight] transition-colors group">
-                        <div><h3 class="text-xl font-bold text-[--primary-accent]">Hash & Zaza 🪴</h3><p class="text-xs text-[--text-muted]">Sélection premium - Coffee'Quality Certifiée !</p></div>
+                        <div><h3 class="text-lg font-black text-[--primary-accent] uppercase">Hash & Zaza 🪴</h3><p class="text-xs text-[--text-muted] mt-1 font-light">Sélection premium - Coffee'Quality Certifiée !</p></div>
                         <span class="text-2xl">➡️</span>
                     </div>
                     <div onclick="changeScreen('products', 'Snow Valley')" class="glass-card p-6 flex justify-between items-center cursor-pointer hover:bg-[--bg-card-highlight] transition-colors group">
-                        <div><h3 class="text-xl font-bold text-white">Snow Valley ❄️</h3><p class="text-xs text-[--text-muted]">Spécial Fêtes • Givré 💎</p></div>
+                        <div><h3 class="text-lg font-black text-white uppercase">Snow Valley ❄️</h3><p class="text-xs text-[--text-muted] mt-1 font-light">Spécial Fêtes • Givré 💎</p></div>
                         <span class="text-2xl">➡️</span>
                     </div>
                 </div>
                 <div class="mt-8">
-                    <h4 class="text-xl font-bold text-white mb-4">Retours Clients ⭐</h4>
+                    <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-widest opacity-80 ml-1">Retours Clients ⭐</h4>
                     <div class="flex overflow-x-auto gap-4 pb-4 no-scrollbar">
-                        ${testimonials.map(t => `<div class="glass-card p-4 min-w-[260px] border-l-2 border-[--primary-accent]"><p class="text-sm font-bold text-white">${t.name}</p><p class="text-xs text-[--text-muted] italic">"${t.text}"</p></div>`).join('')}
+                        ${testimonials.map(t => `<div class="glass-card p-4 min-w-[260px] border-l-2 border-[--primary-accent]"><p class="text-xs font-bold text-white mb-1">${t.name}</p><p class="text-xs text-[--text-muted] italic leading-relaxed">"${t.text}"</p></div>`).join('')}
                     </div>
                 </div>
             </div>`;
@@ -332,22 +348,22 @@
         const items = productData.filter(p => p.category === cat);
         return `
             <div class="space-y-4">
-                <button onclick="changeScreen('menu')" class="text-[--text-muted] hover:text-white text-sm">⬅️ Retour</button>
-                <h2 class="text-2xl font-bold text-white mb-4">${cat} 🎁</h2>
+                <button onclick="changeScreen('menu')" class="text-[--text-muted] hover:text-white text-sm font-medium mb-2">⬅️ Retour</button>
+                <h2 class="text-2xl font-black text-white mb-4 uppercase tracking-wide">${cat} 🎁</h2>
                 ${items.map(p => `
                     <div class="glass-card p-4 flex gap-4 ${p.isFav ? 'favorite' : ''}">
                         <div class="w-24 h-24 bg-black rounded-lg overflow-hidden flex-shrink-0 relative border border-[--border-subtle] cursor-pointer" onclick="openModal('${p.id}')">
                             <video src="${p.videoUrl}" class="w-full h-full object-cover opacity-80 pointer-events-none" muted loop playsinline autoplay></video>
                             <div class="absolute inset-0 flex items-center justify-center bg-black/20"><span class="text-2xl">▶️</span></div>
-                            ${p.isFav ? '<div class="absolute top-0 right-0 bg-[--primary-accent] text-black text-[9px] font-bold px-1 rounded-bl">TOP 🔥</div>' : ''}
+                            ${p.isFav ? '<div class="absolute top-0 right-0 bg-[--primary-accent] text-black text-[9px] font-black px-1.5 py-0.5 rounded-bl uppercase">TOP 🔥</div>' : ''}
                         </div>
                         <div class="flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="font-bold text-lg text-white">${p.name} ${p.icon}</h3>
-                                <div class="text-[--primary-accent] text-xs font-bold mb-1">${p.rating}</div>
-                                ${p.tag ? `<span class="text-[10px] bg-white/10 text-white px-2 py-0.5 rounded">${p.tag}</span>` : ''}
+                                <h3 class="font-bold text-lg text-white leading-tight">${p.name} ${p.icon}</h3>
+                                <div class="text-[--primary-accent] text-xs font-bold mb-1 mt-1">${p.rating}</div>
+                                ${p.tag ? `<span class="text-[9px] bg-white/10 text-white px-2 py-0.5 rounded font-medium uppercase tracking-wider">${p.tag}</span>` : ''}
                             </div>
-                            <button onclick="openModal('${p.id}')" class="btn-ghost text-xs py-2 px-4 mt-2 w-fit hover:bg-[--primary-accent] hover:text-white">Choisir ➡️</button>
+                            <button onclick="openModal('${p.id}')" class="btn-ghost text-xs py-2 px-4 mt-2 w-fit hover:bg-[--primary-accent] hover:text-white hover:border-transparent font-bold">CHOISIR ➡️</button>
                         </div>
                     </div>
                 `).join('')}
@@ -357,81 +373,87 @@
     function renderContact() {
         return `
             <div class="space-y-6 pt-2 pb-8">
-                <h2 class="text-2xl font-bold text-white text-center mb-6">Services & Protocoles</h2>
+                <h2 class="text-2xl font-black text-white text-center mb-6 uppercase tracking-wide">Services & Protocoles</h2>
+                
+                <!-- Meet-up -->
                 <div class="glass-card p-5">
-                    <h3 class="text-lg font-bold text-[--primary-accent] mb-3 flex items-center gap-2"><span>🤝</span> MEET-UP South Valley</h3>
+                    <h3 class="text-lg font-bold text-[--primary-accent] mb-3 flex items-center gap-2 uppercase"><span>🤝</span> MEET-UP South Valley</h3>
                     <div class="mini-map-container"><img src="https://res.cloudinary.com/dlmmylat6/image/upload/v1765072481/Sans_titre_Logo_2_oajwa3.png" class="mini-map-img"></div>
-                    <p class="text-sm text-[--text-muted] mb-2">Nos meet-ups se déroulent dans le 92. Adresses discrètes et sans vis-à-vis pour votre sécurité. 😇</p>
+                    <p class="text-sm text-[--text-muted] mb-2 leading-relaxed">Nos meet-ups se déroulent dans le 92. Adresses discrètes et sans vis-à-vis pour votre sécurité. 😇</p>
                     <div class="flex items-center gap-2 mb-3 mt-3">
-                        <span class="bg-blue-900/40 text-blue-300 text-xs font-bold px-2 py-1 rounded">Ligne 13</span>
-                        <span class="bg-yellow-900/40 text-yellow-300 text-xs font-bold px-2 py-1 rounded">RER C</span>
-                        <span class="bg-purple-900/40 text-purple-300 text-xs font-bold px-2 py-1 rounded">RER L</span>
+                        <span class="bg-blue-900/40 text-blue-300 text-[10px] font-bold px-2 py-1 rounded uppercase">Ligne 13</span>
+                        <span class="bg-yellow-900/40 text-yellow-300 text-[10px] font-bold px-2 py-1 rounded uppercase">RER C</span>
+                        <span class="bg-purple-900/40 text-purple-300 text-[10px] font-bold px-2 py-1 rounded uppercase">RER L</span>
                     </div>
                     <p class="text-sm font-bold text-white mb-4">🕰️ Horaires : 10:30 à 02:00</p>
-                    <div class="bg-black/20 p-3 rounded-lg">
-                        <h4 class="text-xs font-bold text-[--text-muted] uppercase mb-2">📌 Modalités de commande</h4>
-                        <ul class="list-none text-xs text-[--text-muted] space-y-2">
-                            <li class="flex gap-2"><span class="text-white">🆔</span> <span class="leading-tight">Vérification d’identité obligatoire pour les nouveaux arrivants.</span></li>
-                            <li class="flex gap-2"><span class="text-white">🛍</span> <span class="leading-tight">Consulte le menu via notre Mini-app.</span></li>
-                            <li class="flex gap-2"><span class="text-white">✍️</span> <span class="leading-tight">Envoie ta commande complète.</span></li>
-                            <li class="flex gap-2"><span class="text-white">💬</span> <span class="leading-tight">On te communique l’adresse & l’itinéraire.</span></li>
-                            <li class="flex gap-2"><span class="text-white">🚶‍♂️</span> <span class="leading-tight">Tu passes récupérer ta commande.</span></li>
+                    <div class="bg-black/30 p-4 rounded-xl border border-[--border-subtle]">
+                        <h4 class="text-xs font-bold text-[--text-muted] uppercase mb-3 tracking-wider">📌 Modalités de commande</h4>
+                        <ul class="list-none text-xs text-[--text-muted] space-y-2.5 font-light">
+                            <li class="flex gap-2"><span class="text-white font-normal">🆔</span> <span class="leading-tight">Vérification d’identité <b>obligatoire</b> pour les nouveaux arrivants.</span></li>
+                            <li class="flex gap-2"><span class="text-white font-normal">🛍</span> <span class="leading-tight">Consulte le menu via notre Mini-app.</span></li>
+                            <li class="flex gap-2"><span class="text-white font-normal">✍️</span> <span class="leading-tight">Envoie ta commande complète.</span></li>
+                            <li class="flex gap-2"><span class="text-white font-normal">💬</span> <span class="leading-tight">On te communique l’adresse & l’itinéraire.</span></li>
+                            <li class="flex gap-2"><span class="text-white font-normal">🚶‍♂️</span> <span class="leading-tight">Tu passes récupérer ta commande.</span></li>
                         </ul>
                     </div>
                 </div>
+
+                <!-- Livraison -->
                 <div class="glass-card p-5">
-                    <h3 class="text-lg font-bold text-[--primary-accent] mb-3 flex items-center gap-2"><span>📦</span> Livraisons South Valley</h3>
+                    <h3 class="text-lg font-bold text-[--primary-accent] mb-3 flex items-center gap-2 uppercase"><span>📦</span> Livraisons South Valley</h3>
                     <div class="mini-map-container"><img src="https://res.cloudinary.com/dlmmylat6/image/upload/v1765072290/Sans_titre_Logo_1_vtesoh.png" class="mini-map-img"></div>
                     <p class="text-sm text-[--text-muted] mb-4">Nous desservons toute l’Île-de-France et certaines zones hors IDF.</p>
                     <div class="space-y-3 mb-4">
-                        <div class="bg-black/20 p-3 rounded-lg border-l-2 border-blue-500"><p class="text-xs font-bold text-white">🇫🇷 Île-de-France complète</p><p class="text-xs text-[--primary-accent] mt-1">Min. : 60€ 🤝</p></div>
-                        <div class="bg-black/20 p-3 rounded-lg border-l-2 border-purple-500"><p class="text-xs font-bold text-white">📍 Régions limitrophes</p><p class="text-[10px] text-[--text-muted]">(28/60/45/02/89/27/10)</p><p class="text-xs text-[--primary-accent] mt-1">Min. : 200€ 🤝</p></div>
+                        <div class="bg-black/20 p-3 rounded-lg border-l-2 border-blue-500"><p class="text-xs font-bold text-white">🇫🇷 Île-de-France complète</p><p class="text-xs text-[--primary-accent] mt-1 font-semibold">Min. : 60€ 🤝</p></div>
+                        <div class="bg-black/20 p-3 rounded-lg border-l-2 border-purple-500"><p class="text-xs font-bold text-white">📍 Régions limitrophes</p><p class="text-[10px] text-[--text-muted]">(28/60/45/02/89/27/10)</p><p class="text-xs text-[--primary-accent] mt-1 font-semibold">Min. : 200€ 🤝</p></div>
                     </div>
-                    <div class="bg-black/20 p-3 rounded-lg">
-                        <h4 class="text-xs font-bold text-[--text-muted] uppercase mb-2">📌 Modalités de commande</h4>
-                        <ul class="list-none text-xs text-[--text-muted] space-y-2">
-                            <li class="flex gap-2"><span class="text-white">🆔</span> <span class="leading-tight">Vérification d’identité obligatoire pour les nouveaux arrivants.</span></li>
-                            <li class="flex gap-2"><span class="text-white">⚠️</span> <span class="leading-tight">Prise de commande à n'importe quel moment.</span></li>
-                            <li class="flex gap-2"><span class="text-white">✍️</span> <span class="leading-tight">Envoie ta demande complète en remplissant les champs présent au Check-out.</span></li>
-                            <li class="flex gap-2"><span class="text-white">💵</span> <span class="leading-tight">Règlement en liquide uniquement.</span></li>
-                            <li class="flex gap-2"><span class="text-white">📦</span> <span class="leading-tight">On se déplace jusqu’à l’adresse de ton choix pour garantir une livraison sécurisée & en toute discrétion.</span></li>
+                    <div class="bg-black/30 p-4 rounded-xl border border-[--border-subtle]">
+                        <h4 class="text-xs font-bold text-[--text-muted] uppercase mb-3 tracking-wider">📌 Modalités de commande</h4>
+                        <ul class="list-none text-xs text-[--text-muted] space-y-2.5 font-light">
+                            <li class="flex gap-2"><span class="text-white font-normal">🆔</span> <span class="leading-tight">Vérification d’identité <b>obligatoire</b>.</span></li>
+                            <li class="flex gap-2"><span class="text-white font-normal">⚠️</span> <span class="leading-tight">Prise de commande à n'importe quel moment.</span></li>
+                            <li class="flex gap-2"><span class="text-white font-normal">✍️</span> <span class="leading-tight">Envoie ta demande complète au Check-out.</span></li>
+                            <li class="flex gap-2"><span class="text-white font-normal">💵</span> <span class="leading-tight">Règlement en liquide uniquement.</span></li>
+                            <li class="flex gap-2"><span class="text-white font-normal">📦</span> <span class="leading-tight">Livraison sécurisée & en toute <b>discrétion</b>.</span></li>
                         </ul>
                     </div>
                 </div>
+
+                <!-- Postal -->
                 <div class="glass-card p-5 border border-[--primary-accent] relative overflow-hidden">
-                    <div class="absolute right-[-10px] top-[-10px] bg-[--primary-accent] text-black text-[10px] font-bold px-3 py-1 rotate-12">PREMIUM</div>
-                    <h3 class="text-lg font-bold text-[--primary-accent] mb-3 flex items-center gap-2"><span>📬</span> South Valley Postal Service</h3>
+                    <div class="absolute right-[-10px] top-[-10px] bg-[--primary-accent] text-black text-[9px] font-black px-4 py-1 rotate-12 uppercase tracking-wide">PREMIUM</div>
+                    <h3 class="text-lg font-bold text-[--primary-accent] mb-3 flex items-center gap-2 uppercase"><span>📬</span> South Valley Postal Service</h3>
                     <div class="mini-map-container"><img src="https://res.cloudinary.com/dlmmylat6/image/upload/v1765072664/Sans_titre_Logo_3_y02vdt.png" class="mini-map-img"></div>
                     <p class="text-sm text-[--text-muted] mb-4">L'équipe South Valley vous garantit une expérience exclusive grâce au service d'Envois Postal.</p>
-                    <p class="text-xs text-white bg-black/40 p-2 rounded mb-4">Sélectionnez vos produits, puis choisissez le paiement <b>Crypto (BTC/LTC/ETH/USDT)</b> ou <b>PCS</b> au checkout.</p>
-                    <div class="space-y-3 text-xs text-[--text-muted]">
-                        <p class="flex gap-2 items-start"><span class="text-xl">📦</span> <span><strong class="text-white">CONFIDENTIALITÉ MAXIMALE :</strong> LES COMMANDES SONT TRIPLEMENT SCELLÉES SOUS VIDE ET EMBALLÉES DANS UN EMBALLAGE EXTRA DISCRET POUR PLUS DE CONFIDENTIALITÉ.</span></p>
-                        <p class="flex gap-2 items-start"><span class="text-xl">✅</span> <span><strong class="text-white">RAPIDITÉ :</strong> UNE FOIS LE PAIEMENT EFFECTUÉ, VOTRE COMMANDE SERA EXPÉDIÉE LE JOUR OUVRABLE SUIVANT ET VOUS RECEVREZ UN NUMÉRO DE SUIVI.</span></p>
-                        <p class="flex gap-2 items-start"><span class="text-xl">🛡️</span> <span><strong class="text-white">ASSURANCE 100% :</strong> NOUS OFFRONS ÉGALEMENT UNE ASSURANCE À 100 % SI LE COLIS N'ARRIVE PAS À DESTINATION EN RAISON D'UNE ERREUR DE NOTRE PART (CE QUI EST RARE).</span></p>
+                    <p class="text-xs text-white bg-black/40 p-3 rounded-lg mb-4 leading-relaxed font-medium">Sélectionnez vos produits, puis choisissez le paiement <b>Crypto (BTC/LTC/ETH/USDT)</b> ou <b>PCS</b> au checkout.</p>
+                    <div class="space-y-3 text-xs text-[--text-muted] font-light">
+                        <p class="flex gap-2 items-start"><span class="text-lg">📦</span> <span><strong class="text-white font-bold uppercase">CONFIDENTIALITÉ MAXIMALE :</strong> COMMANDES TRIPLEMENT SCELLÉES SOUS VIDE ET EMBALLAGE EXTRA DISCRET.</span></p>
+                        <p class="flex gap-2 items-start"><span class="text-lg">✅</span> <span><strong class="text-white font-bold uppercase">RAPIDITÉ :</strong> EXPÉDITION LE JOUR OUVRABLE SUIVANT + NUMÉRO DE SUIVI.</span></p>
+                        <p class="flex gap-2 items-start"><span class="text-lg">🛡️</span> <span><strong class="text-white font-bold uppercase">ASSURANCE 100% :</strong> REMBOURSEMENT INTÉGRAL EN CAS D'ERREUR DE NOTRE PART.</span></p>
                     </div>
                 </div>
             </div>`;
     }
 
     function renderCart() {
-        if (cart.length === 0) return `<div class="flex flex-col items-center justify-center h-[50vh]"><h3 class="text-xl font-bold text-white">Panier Vide 💔</h3><button onclick="changeScreen('menu')" class="btn-main px-6 py-3 mt-4">Explorer</button></div>`;
+        if (cart.length === 0) return `<div class="flex flex-col items-center justify-center h-[50vh]"><h3 class="text-xl font-bold text-white mb-2 uppercase">Panier Vide 💔</h3><p class="text-sm text-[--text-muted] mb-6">Faites votre choix dans le menu.</p><button onclick="changeScreen('menu')" class="btn-main px-8 py-3 font-bold">EXPLORER</button></div>`;
         const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
         return `
             <div class="space-y-6">
-                <h2 class="text-2xl font-bold text-white">📦 Votre Panier</h2>
+                <h2 class="text-2xl font-black text-white uppercase tracking-wide">📦 Votre Panier</h2>
                 ${cart.map((item, idx) => `
                     <div class="glass-card p-4 flex justify-between items-center">
-                        <div><p class="font-bold text-white">${item.name}</p><p class="text-xs text-[--text-muted]">${item.price}€ / u</p></div>
+                        <div><p class="font-bold text-white text-sm">${item.name}</p><p class="text-xs text-[--text-muted] mt-1 font-medium">${item.price}€ / u</p></div>
                         <div class="flex items-center gap-3 bg-black/30 rounded-lg p-1">
-                            <button onclick="updateQty(${idx}, -1)" class="w-8 text-[--text-muted]">-</button>
-                            <span class="text-sm font-bold w-4 text-center">${item.quantity}</span>
-                            <button onclick="updateQty(${idx}, 1)" class="w-8 text-[--text-muted]">+</button>
-                            <button onclick="removeItem(${idx})" class="text-xl text-[--danger] ml-2">🗑️</button>
+                            <button onclick="updateQty(${idx}, -1)" class="w-8 text-[--text-muted] hover:text-white font-bold">-</button>
+                            <span class="text-sm font-bold w-4 text-center text-white">${item.quantity}</span>
+                            <button onclick="updateQty(${idx}, 1)" class="w-8 text-[--text-muted] hover:text-white font-bold">+</button>
+                            <button onclick="removeItem(${idx})" class="text-lg text-[--danger] ml-2 hover:opacity-80">🗑️</button>
                         </div>
                     </div>`).join('')}
                 <div class="glass-card p-5 mt-8">
-                    <div class="flex justify-between items-center mb-6"><span class="text-[--text-muted]">Total</span><span class="text-2xl font-bold text-[--primary-accent]">${total}€</span></div>
-                    <button onclick="changeScreen('checkout')" class="btn-main w-full py-4">VALIDER 🔒</button>
+                    <div class="flex justify-between items-center mb-6"><span class="text-[--text-muted] font-medium uppercase tracking-wide text-xs">Total estimé</span><span class="text-2xl font-black text-[--primary-accent]">${total}€</span></div>
+                    <button onclick="changeScreen('checkout')" class="btn-main w-full py-4 font-bold">VALIDER LA COMMANDE 🔒</button>
                 </div>
             </div>`;
     }
@@ -440,32 +462,46 @@
         const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
         return `
             <div class="space-y-6">
-                <button onclick="changeScreen('cart')" class="text-sm text-[--text-muted] hover:text-white mb-2">← Retour</button>
-                <h2 class="text-2xl font-bold text-white">Validation</h2>
-                <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-xl"><p class="text-xs text-red-200">⚠️ 1ère commande ? CNI + Selfie obligatoire sur WhatsApp.</p></div>
-                <form class="space-y-4">
-                    <div><label class="text-xs text-[--text-muted] font-bold">Service</label>
-                    <div class="grid gap-2 mt-1">
-                        <button type="button" onclick="selectService(this, 'LIVRAISON')" class="service-opt glass-card p-3 text-sm text-[--text-muted] hover:text-white text-left">🚚 Livraison</button>
-                        <button type="button" onclick="selectService(this, 'MEET-UP')" class="service-opt glass-card p-3 text-sm text-[--text-muted] hover:text-white text-left">🤝 Meet-up</button>
-                        <button type="button" onclick="selectService(this, 'POSTAL')" class="service-opt glass-card p-3 text-sm text-[--text-muted] hover:text-white text-left">📬 Postal</button>
+                <button onclick="changeScreen('cart')" class="text-xs text-[--text-muted] hover:text-white mb-2 font-medium uppercase tracking-wide">← Retour au panier</button>
+                <h2 class="text-2xl font-black text-white uppercase tracking-wide">Validation</h2>
+                <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-xl"><p class="text-xs text-red-200 font-medium">⚠️ 1ère commande ? <span class="font-bold text-white">CNI + Selfie obligatoire</span> sur WhatsApp.</p></div>
+                <form class="space-y-6 mt-4">
+                    <div><label class="text-xs text-[--text-muted] font-bold uppercase tracking-wider ml-1">Service</label>
+                    <div class="grid gap-2 mt-2">
+                        <button type="button" onclick="selectService(this, 'LIVRAISON')" class="service-opt glass-card p-3 text-sm text-[--text-muted] hover:text-white text-left font-medium transition-all">🚚 Livraison</button>
+                        <button type="button" onclick="selectService(this, 'MEET-UP')" class="service-opt glass-card p-3 text-sm text-[--text-muted] hover:text-white text-left font-medium transition-all">🤝 Meet-up</button>
+                        <button type="button" onclick="selectService(this, 'POSTAL')" class="service-opt glass-card p-3 text-sm text-[--text-muted] hover:text-white text-left font-medium transition-all">📬 Postal</button>
                     </div><input type="hidden" id="serviceType"></div>
 
-                    <div><label class="text-xs text-[--text-muted] font-bold">Infos</label>
-                    <input type="text" id="tgUser" placeholder="Pseudo Telegram" class="input-modern mt-1 mb-2">
-                    <input type="text" id="shippingName" placeholder="Nom Complet (Obligatoire)" class="input-modern mt-1 mb-2">
-                    <input type="text" id="waNum" placeholder="Numéro WhatsApp (Obligatoire)" class="input-modern mt-1 mb-2 border-l-4 border-l-[--primary-accent]">
-                    <input type="text" id="address" placeholder="Adresse complète" class="input-modern mt-1"></div>
+                    <div>
+                        <label class="text-xs text-[--text-muted] font-bold uppercase tracking-wider ml-1">Vos Informations</label>
+                        
+                        <!-- TELEGRAM -->
+                        <input type="text" id="tgUser" placeholder="@PseudoTelegram" class="input-modern mt-2">
+                        <p class="input-helper">Contact de secours. 🛡️</p>
 
-                    <div><label class="text-xs text-[--text-muted] font-bold">Paiement</label>
-                    <div class="grid grid-cols-2 gap-2 mt-1">
-                        <button type="button" onclick="selectPayment(this, 'CASH')" class="payment-opt glass-card p-3 text-sm text-[--text-muted]">💵 CASH</button>
-                        <button type="button" onclick="selectPayment(this, 'CRYPTO')" class="payment-opt glass-card p-3 text-sm text-[--text-muted]">₿ CRYPTO</button>
+                        <!-- NOM -->
+                        <input type="text" id="shippingName" placeholder="Nom Complet (Obligatoire)" class="input-modern mt-1">
+                        <p class="input-helper">Pour l'identification lors du <b class="highlight">Meet-up</b> ou <b class="highlight">Livraison</b>.</p>
+
+                        <!-- WHATSAPP -->
+                        <input type="text" id="waNum" placeholder="Numéro WhatsApp (Obligatoire)" class="input-modern mt-1 border-l-4 border-l-[--primary-accent]">
+                        <p class="input-helper">📞 <b class="highlight">Impératif</b> pour assurer à <b class="highlight">100%</b> votre suivi.</p>
+
+                        <!-- ADRESSE -->
+                        <input type="text" id="address" placeholder="Adresse complète" class="input-modern mt-1">
+                        <p class="input-helper">📍 <b class="highlight">Précise</b> (Rue, Ville, Code Postal). Confidentialité garantie.</p>
+                    </div>
+
+                    <div><label class="text-xs text-[--text-muted] font-bold uppercase tracking-wider ml-1">Paiement</label>
+                    <div class="grid grid-cols-2 gap-2 mt-2">
+                        <button type="button" onclick="selectPayment(this, 'CASH')" class="payment-opt glass-card p-3 text-sm text-[--text-muted] font-bold uppercase text-center transition-all">💵 CASH</button>
+                        <button type="button" onclick="selectPayment(this, 'CRYPTO')" class="payment-opt glass-card p-3 text-sm text-[--text-muted] font-bold uppercase text-center transition-all">₿ CRYPTO</button>
                     </div><input type="hidden" id="paymentMethod"></div>
                 </form>
                 <div class="mt-8 pt-4 border-t border-[--border-subtle]">
-                    <div class="flex justify-between mb-4"><span class="text-sm">TOTAL</span><span class="text-xl font-bold text-[--primary-accent]">${total}€</span></div>
-                    <button onclick="submitOrder()" class="btn-main w-full py-4">ENVOYER LA COMMANDE 📩</button>
+                    <div class="flex justify-between mb-4"><span class="text-sm font-bold text-[--text-muted] uppercase">TOTAL À RÉGLER</span><span class="text-xl font-black text-[--primary-accent]">${total}€</span></div>
+                    <button onclick="submitOrder()" class="btn-main w-full py-4 font-bold">ENVOYER LA COMMANDE 📩</button>
                 </div>
             </div>`;
     }
@@ -473,12 +509,12 @@
     function renderSuccess() {
         return `
             <div class="flex flex-col items-center justify-center h-[60vh] text-center px-4">
-                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4"><span class="text-3xl">✅</span></div>
-                <h2 class="text-3xl font-bold text-white mb-2">Envoyé !</h2>
-                <div class="glass-card p-4 w-full max-w-xs border-dashed border-2 border-[--border-subtle] mb-6">
-                    <p class="text-xs text-[--text-muted]">Code Unique</p><p class="text-2xl font-mono font-bold text-[--primary-accent]">${securityCode}</p>
+                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4 border border-green-500/50"><span class="text-3xl">✅</span></div>
+                <h2 class="text-3xl font-black text-white mb-2 uppercase">ENVOYÉ !</h2>
+                <div class="glass-card p-4 w-full max-w-xs border-dashed border-2 border-[--border-subtle] mb-6 mt-4">
+                    <p class="text-[10px] text-[--text-muted] uppercase tracking-widest font-bold mb-1">Code Unique</p><p class="text-2xl font-mono font-black text-[--primary-accent] tracking-widest">${securityCode}</p>
                 </div>
-                <a id="waBtn" href="#" target="_blank" class="btn-main px-8 py-3 w-full max-w-xs flex items-center justify-center gap-2"><span class="text-xl">🟢</span> Ouvrir WhatsApp</a>
+                <a id="waBtn" href="#" target="_blank" class="btn-main px-8 py-4 w-full max-w-xs flex items-center justify-center gap-2 font-bold uppercase"><span class="text-xl">🟢</span> Ouvrir WhatsApp</a>
             </div>`;
     }
 
@@ -492,10 +528,10 @@
         vid.load();
         document.getElementById('tiersContainer').innerHTML = p.tiers.map(t => `
             <div class="flex justify-between items-center p-3 rounded-lg bg-black/30 border border-[--border-subtle]">
-                <span class="font-bold text-white">${t.w}</span>
+                <span class="font-bold text-white text-sm">${t.w}</span>
                 <div class="flex items-center gap-3">
-                    <span class="text-[--primary-accent] font-bold">${t.p}€</span>
-                    <button onclick="addToCart('${p.id}', '${p.name}', '${t.w}', ${t.p})" class="bg-white text-black text-xs font-bold px-3 py-1.5 rounded hover:bg-gray-200">+</button>
+                    <span class="text-[--primary-accent] font-bold text-sm">${t.p}€</span>
+                    <button onclick="addToCart('${p.id}', '${p.name}', '${t.w}', ${t.p})" class="bg-white text-black text-xs font-black px-3 py-1.5 rounded hover:bg-gray-200 uppercase tracking-wide">Ajouter</button>
                 </div>
             </div>`).join('');
         document.getElementById('productModal').classList.remove('hidden');
